@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Create";
+    //Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h1>Create</h1>
@@ -17,82 +18,127 @@
         }
 
 
-    <form asp-action="Create" method="post" enctype="multipart/form-data">
-        @*<div asp-validation-summary="ModelOnly" class="text-danger"></div>
-        <div class="form-group">
-            <label asp-for="Id" class="control-label"></label>
-            <input asp-for="Id" class="form-control" />
-            <span asp-validation-for="Id" class="text-danger"></span>
-        </div>*@
-        <div class="form-group">
-            <label asp-for="fName" class="control-label"></label>
-            <input asp-for="fName" class="form-control" />
-            <span asp-validation-for="fName" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="lName" class="control-label"></label>
-            <input asp-for="lName" class="form-control" />
-            <span asp-validation-for="lName" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="phoneNo" class="control-label"></label>
-            <input asp-for="phoneNo" class="form-control" />
-            <span asp-validation-for="phoneNo" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="emailNo" class="control-label"></label>
-            <input asp-for="emailNo" class="form-control" />
-            <span asp-validation-for="emailNo" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="countryName" class="control-label"></label>
-            @*<input asp-for="userCity" class="form-control" />*@
-            @Html.DropDownListFor(model => model.countrylist, new SelectList(Model.countrylist, "Id", "countryName", 0), "Select Country", new { @class = "form-control" })
-            <span asp-validation-for="countryName" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="userCity" class="control-label"></label>
-            @*<input asp-for="userCity" class="form-control" />*@
-            @Html.DropDownListFor(model => model.cityist, new SelectList(Model.cityist, "Id", "cityName", 0), "Select City", new { @class = "form-control" })
-            <span asp-validation-for="userCity" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="userImg" class="control-label"></label>
-            @*<input asp-for="userImg" class="form-control" />*@
-            <input asp-for="userImg" class="form-control" type="file" />
-            <span asp-validation-for="userImg" class="text-danger"></span>
-        </div>
-        @*<div class="form-group">
-            <label asp-for="userCV" class="control-label"></label>
-            <input asp-for="userCV" class="form-control" />
-            <span asp-validation-for="userCV" class="text-danger"></span>
-        </div>*@
-        <div class="form-group">
-            <label asp-for="password" class="control-label"></label>
-            <input asp-for="password" class="form-control" />
-            <span asp-validation-for="password" class="text-danger"></span>
-        </div>
-        @*<div class="form-group">
-            <label asp-for="dob" class="control-label"></label>
-            <input asp-for="dob" class="form-control" />
-            <span asp-validation-for="dob" class="text-danger"></span>
-        </div>*@
-        <div class="form-group">
-            <label asp-for="Gender" class="control-label"></label>
-            @*<input asp-for="Gender" class="form-control" />*@
-            Male: <input checked="checked" id="Gender" name="Gender" type="radio" value="male" />
-            Female: <input id="Gender" name="Gender" type="radio" value="female" />
-            Others: <input id="Gender" name="Gender" type="radio" value="others" />
-            <span asp-validation-for="Gender" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <input type="submit" value="Create" class="btn btn-primary" />
-        </div>
-    </form>
+        <form asp-action="Create" method="post" enctype="multipart/form-data">
+            @*<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Id" class="control-label"></label>
+                    <input asp-for="Id" class="form-control" />
+                    <span asp-validation-for="Id" class="text-danger"></span>
+                </div>*@
+            <div class="form-group">
+                <label asp-for="fName" class="control-label"></label>
+                <input asp-for="fName" class="form-control" />
+                <span asp-validation-for="fName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="lName" class="control-label"></label>
+                <input asp-for="lName" class="form-control" />
+                <span asp-validation-for="lName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="phoneNo" class="control-label"></label>
+                <input asp-for="phoneNo" class="form-control" />
+                <span asp-validation-for="phoneNo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="emailNo" class="control-label"></label>
+                <input asp-for="emailNo" class="form-control" />
+                <span asp-validation-for="emailNo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="countryName" class="control-label"></label>
+                @*<input asp-for="userCity" class="form-control" />*@
+                @Html.DropDownListFor(model => model.countrylist, new SelectList(Model.countrylist, "Id", "countryName", 0), "Select Country", new { @class = "form-control" })
+                <span asp-validation-for="countryName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label>City</label>
+                <select id="cityId" class="form-control">
+                    <option>--Select--</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label asp-for="userImg" class="control-label"></label>
+                @*<input asp-for="userImg" class="form-control" />*@
+                <input asp-for="userImg" class="form-control" type="file" />
+                <span asp-validation-for="userImg" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="userCV" class="control-label"></label>
+                <input asp-for="userCV" class="form-control" type="file" />
+                <span asp-validation-for="userCV" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="password" class="control-label"></label>
+                <input asp-for="password" class="form-control" />
+                <span asp-validation-for="password" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="dob" class="control-label"></label>
+                @*<input asp-for="dob" class="form-control" />*@
+            <input type="text" class="form-control" name="dob" id="dob" autocomplete="off"  />
+                <span asp-validation-for="dob" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Gender" class="control-label"></label>
+                @*<input asp-for="Gender" class="form-control" />*@
+                Male: <input checked="checked" id="Gender" name="Gender" type="radio" value="male" />
+                Female: <input id="Gender" name="Gender" type="radio" value="female" />
+                Others: <input id="Gender" name="Gender" type="radio" value="others" />
+                <span asp-validation-for="Gender" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
     </div>
 </div>
 
 <div>
     <a asp-action="Index">Back to List</a>
 </div>
+
+
+@section Scripts
+{
+    <script>
+        //Supplier date
+        $(document).ready(function () {
+            $('#dob').datepicker({
+                dateFormat: "dd/mm/yy",
+                changeMonth: true,
+                changeYear: true,
+                yearRange: "2000:2019",
+                //showOn: "both",
+                //buttonText: "<i class='fa fa-calendar'></i>"
+            });
+        });
+
+
+
+
+            $("#countryName").change(function () {
+                var countryName = $("#countryName").val();
+                var jsonRequestData = { countryName: countryName }
+
+                $.ajax({
+                    url: "/Home/GetCityByCountry",
+                    type: "POST",
+                    data: jsonRequestData,
+                    success: function (data) {
+                        //alert("Ajax Success.");
+                        $("#cityId").empty();
+                        $("#cityId").append('<option>--Select--</option>');
+                        $.each(data, function (key, value) {
+                            $("#cityId").append('<option value = "' + value.Id + '">' + value.Name + '</option>');
+                        });
+                    },
+                    error: function () {
+                        alert("Ajax Failed.");
+                    },
+                });
+            });
+     
+     </script>
+}
 

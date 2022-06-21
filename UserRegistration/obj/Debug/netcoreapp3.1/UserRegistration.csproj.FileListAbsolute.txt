@@ -1,5 +1,6 @@
 D:\DotNetBase\UserRegistration\UserRegistration\bin\Debug\netcoreapp3.1\appsettings.Development.json
 D:\DotNetBase\UserRegistration\UserRegistration\bin\Debug\netcoreapp3.1\appsettings.json
+D:\DotNetBase\UserRegistration\UserRegistration\bin\Debug\netcoreapp3.1\libman.json
 D:\DotNetBase\UserRegistration\UserRegistration\bin\Debug\netcoreapp3.1\UserRegistration.exe
 D:\DotNetBase\UserRegistration\UserRegistration\bin\Debug\netcoreapp3.1\UserRegistration.deps.json
 D:\DotNetBase\UserRegistration\UserRegistration\bin\Debug\netcoreapp3.1\UserRegistration.runtimeconfig.json
@@ -8,12 +9,20 @@ D:\DotNetBase\UserRegistration\UserRegistration\bin\Debug\netcoreapp3.1\UserRegi
 D:\DotNetBase\UserRegistration\UserRegistration\bin\Debug\netcoreapp3.1\UserRegistration.pdb
 D:\DotNetBase\UserRegistration\UserRegistration\bin\Debug\netcoreapp3.1\UserRegistration.Views.dll
 D:\DotNetBase\UserRegistration\UserRegistration\bin\Debug\netcoreapp3.1\UserRegistration.Views.pdb
+D:\DotNetBase\UserRegistration\UserRegistration\bin\Debug\netcoreapp3.1\System.Web.Mvc.dll
+D:\DotNetBase\UserRegistration\UserRegistration\bin\Debug\netcoreapp3.1\System.Web.Razor.dll
+D:\DotNetBase\UserRegistration\UserRegistration\bin\Debug\netcoreapp3.1\System.Web.Helpers.dll
+D:\DotNetBase\UserRegistration\UserRegistration\bin\Debug\netcoreapp3.1\System.Web.WebPages.Deployment.dll
+D:\DotNetBase\UserRegistration\UserRegistration\bin\Debug\netcoreapp3.1\System.Web.WebPages.Razor.dll
+D:\DotNetBase\UserRegistration\UserRegistration\bin\Debug\netcoreapp3.1\System.Web.WebPages.dll
 D:\DotNetBase\UserRegistration\UserRegistration\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Razor.Language.dll
 D:\DotNetBase\UserRegistration\UserRegistration\bin\Debug\netcoreapp3.1\Microsoft.CodeAnalysis.dll
 D:\DotNetBase\UserRegistration\UserRegistration\bin\Debug\netcoreapp3.1\Microsoft.CodeAnalysis.CSharp.dll
 D:\DotNetBase\UserRegistration\UserRegistration\bin\Debug\netcoreapp3.1\Microsoft.CodeAnalysis.CSharp.Workspaces.dll
 D:\DotNetBase\UserRegistration\UserRegistration\bin\Debug\netcoreapp3.1\Microsoft.CodeAnalysis.Razor.dll
 D:\DotNetBase\UserRegistration\UserRegistration\bin\Debug\netcoreapp3.1\Microsoft.CodeAnalysis.Workspaces.dll
+D:\DotNetBase\UserRegistration\UserRegistration\bin\Debug\netcoreapp3.1\Microsoft.DotNet.PlatformAbstractions.dll
+D:\DotNetBase\UserRegistration\UserRegistration\bin\Debug\netcoreapp3.1\Microsoft.Extensions.DependencyModel.dll
 D:\DotNetBase\UserRegistration\UserRegistration\bin\Debug\netcoreapp3.1\Microsoft.VisualStudio.Web.CodeGeneration.dll
 D:\DotNetBase\UserRegistration\UserRegistration\bin\Debug\netcoreapp3.1\Microsoft.VisualStudio.Web.CodeGeneration.Contracts.dll
 D:\DotNetBase\UserRegistration\UserRegistration\bin\Debug\netcoreapp3.1\Microsoft.VisualStudio.Web.CodeGeneration.Core.dll
@@ -22,6 +31,7 @@ D:\DotNetBase\UserRegistration\UserRegistration\bin\Debug\netcoreapp3.1\Microsof
 D:\DotNetBase\UserRegistration\UserRegistration\bin\Debug\netcoreapp3.1\Microsoft.VisualStudio.Web.CodeGeneration.Templating.dll
 D:\DotNetBase\UserRegistration\UserRegistration\bin\Debug\netcoreapp3.1\Microsoft.VisualStudio.Web.CodeGeneration.Utils.dll
 D:\DotNetBase\UserRegistration\UserRegistration\bin\Debug\netcoreapp3.1\Microsoft.VisualStudio.Web.CodeGenerators.Mvc.dll
+D:\DotNetBase\UserRegistration\UserRegistration\bin\Debug\netcoreapp3.1\Microsoft.Web.Infrastructure.dll
 D:\DotNetBase\UserRegistration\UserRegistration\bin\Debug\netcoreapp3.1\Newtonsoft.Json.dll
 D:\DotNetBase\UserRegistration\UserRegistration\bin\Debug\netcoreapp3.1\NuGet.Frameworks.dll
 D:\DotNetBase\UserRegistration\UserRegistration\bin\Debug\netcoreapp3.1\System.Composition.AttributedModel.dll
@@ -100,8 +110,12 @@ D:\DotNetBase\UserRegistration\UserRegistration\obj\Debug\netcoreapp3.1\scopedcs
 D:\DotNetBase\UserRegistration\UserRegistration\obj\Debug\netcoreapp3.1\UserRegistration.TagHelpers.input.cache
 D:\DotNetBase\UserRegistration\UserRegistration\obj\Debug\netcoreapp3.1\UserRegistration.TagHelpers.output.cache
 D:\DotNetBase\UserRegistration\UserRegistration\obj\Debug\netcoreapp3.1\UserRegistration.RazorCoreGenerate.cache
+D:\DotNetBase\UserRegistration\UserRegistration\obj\Debug\netcoreapp3.1\Razor\Views\Files\Index.cshtml.g.cs
+D:\DotNetBase\UserRegistration\UserRegistration\obj\Debug\netcoreapp3.1\Razor\Views\Home\Index.cshtml.g.cs
 D:\DotNetBase\UserRegistration\UserRegistration\obj\Debug\netcoreapp3.1\Razor\Views\Home\Privacy.cshtml.g.cs
+D:\DotNetBase\UserRegistration\UserRegistration\obj\Debug\netcoreapp3.1\Razor\Views\Home\UserList.cshtml.g.cs
 D:\DotNetBase\UserRegistration\UserRegistration\obj\Debug\netcoreapp3.1\Razor\Views\Reg\Create.cshtml.g.cs
+D:\DotNetBase\UserRegistration\UserRegistration\obj\Debug\netcoreapp3.1\Razor\Views\Shared\Create.cshtml.g.cs
 D:\DotNetBase\UserRegistration\UserRegistration\obj\Debug\netcoreapp3.1\Razor\Views\Shared\Error.cshtml.g.cs
 D:\DotNetBase\UserRegistration\UserRegistration\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_Layout.cshtml.g.cs
 D:\DotNetBase\UserRegistration\UserRegistration\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_ValidationScriptsPartial.cshtml.g.cs
@@ -115,5 +129,3 @@ D:\DotNetBase\UserRegistration\UserRegistration\obj\Debug\netcoreapp3.1\UserRegi
 D:\DotNetBase\UserRegistration\UserRegistration\obj\Debug\netcoreapp3.1\UserRegistration.pdb
 D:\DotNetBase\UserRegistration\UserRegistration\obj\Debug\netcoreapp3.1\UserRegistration.genruntimeconfig.cache
 D:\DotNetBase\UserRegistration\UserRegistration\obj\Debug\netcoreapp3.1\UserRegistration.csproj.AssemblyReference.cache
-D:\DotNetBase\UserRegistration\UserRegistration\obj\Debug\netcoreapp3.1\Razor\Views\Home\Index.cshtml.g.cs
-D:\DotNetBase\UserRegistration\UserRegistration\obj\Debug\netcoreapp3.1\Razor\Views\Home\UserList.cshtml.g.cs

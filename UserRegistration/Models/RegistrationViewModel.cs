@@ -7,10 +7,25 @@ namespace UserRegistration.Models
 {
     public class RegistrationViewModel
     {
+        public int Id { get; set; }
         public string name { get; set; }
+        public string fName { get; set; }
+        public string lName { get; set; }
+
         public string phone { get; set; }
         public string email { get; set; }
         public string city { get; set; }
         public string country { get; set; }
+        public string Genedr { get; set; }
+        public DateTime dob { get; set; }
+
+        public int Year { get; set; }
+        public int Month { get; set; }
+        public int Day { get; set; }
+
+
+        public string userImg { get; set; }
+
+        public string userCV { get; set; }
     }
 }
