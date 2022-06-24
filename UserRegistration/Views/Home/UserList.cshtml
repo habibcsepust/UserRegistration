@@ -19,11 +19,13 @@
     <hr />
     @{
         int sl = 1;
+        
     }
 
     <div style="color:red;">@TempData["existDuplicate"]</div>
     <div style="color:darkgreen;">@TempData["save"]</div>
-
+    @if (@ViewBag.Total > 0)
+    {
     <table class="table">
         <thead>
             <tr>
@@ -31,10 +33,9 @@
                 <th scope="col">Name</th>
                 <th scope="col">Phone</th>
                 <th scope="col">Email</th>
-                <th scope="col">City</th>
                 <th scope="col">Country</th>
+                <th scope="col">City</th>
                 <th scope="col">Age</th>
-                <th scope="col">Picture</th>
                 <th scope="col">Your CV</th>
                 <th scope="col">Action</th>
             </tr>
@@ -47,9 +48,8 @@
                     <td>@item.name</td>
                     <td>@item.phone</td>
                     <td>@item.email</td>
-                    <td>@item.city</td>
                     <td>@item.country</td>
-                    <td>@item.phone</td>
+                    <td>@item.city</td>
                     <td>@item.Year years @item.Month months @item.Day days</td>
                     <td>
                         <a asp-controller="Reg" asp-action="Download"
@@ -67,6 +67,11 @@
         </tbody>
     </table>
 
+    }
+    else
+    { 
+        <h3 style="color:red;">No registered user found</h3>
+    }
 </div>
 
 <div id="PlaceHolderHere"></div>
@@ -75,8 +80,6 @@
 
 
 
-@foreach (var itemEditData in ViewBag.registrationData)
-{
     <div class="modal fade" tabindex="-1" role="dialog" id="EditRecord">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -92,39 +95,47 @@
 
                         <div class="form-group">
                             <label asp-for="fName" class="control-label"></label>
-                            <input asp-for="fName" value="@itemEditData.fName" class="form-control fName1" />
+                            <input asp-for="fName" value="" class="form-control fName1" />
                             <span asp-validation-for="fName" class="text-danger"></span>
                         </div>
+                        <input type="hidden" name="Id" id="hId" value="" />
+                        <input type="hidden" name="countryName" id="hCountryName" value="" />
                         <div class="form-group">
                             <label asp-for="lName" class="control-label"></label>
-                            <input asp-for="lName" value="@itemEditData.lName" class="form-control lName1" />
+                            <input asp-for="lName" value="" class="form-control lName1" />
                             <span asp-validation-for="lName" class="text-danger"></span>
                         </div>
                         <div class="form-group">
                             <label asp-for="phoneNo" class="control-label"></label>
-                            <input asp-for="phoneNo" value="@itemEditData.phone" class="form-control phoneNo1" />
+                            <input asp-for="phoneNo" value="" maxlength="14" class="form-control phoneNo1" />
                             <span asp-validation-for="phoneNo" class="text-danger"></span>
                         </div>
                         <div class="form-group">
                             <label asp-for="emailNo" class="control-label"></label>
-                            <input asp-for="emailNo" value="@itemEditData.email" class="form-control emailNo1" />
+                            <input asp-for="emailNo" value="" class="form-control emailNo1" />
                             <span asp-validation-for="emailNo" class="text-danger"></span>
                         </div>
                         <div class="form-group">
                             <label asp-for="countryName" class="control-label"></label>
                             @*<input asp-for="userCity" class="form-control" />*@
-                            @Html.DropDownListFor(model => model.countrylist, new SelectList(Model.countrylist, "Id", "countryName", 0), "Select Country", new { @class = "form-control" })
+                            @Html.DropDownListFor(model => model.countrylist, new SelectList(Model.countrylist, "Id", "countryName", 0), "Select Country", new { @class = "form-control"})
                             <span asp-validation-for="countryName" class="text-danger"></span>
                         </div>
-                        @*<div class="form-group">
+                        <div class="form-group">
                             <div class="form-group">
                                 <label>City</label>
                                 <select id="userCity" class="form-control userCity">
-                                    <option>--Select--</option>
+                                    <option value="">Select City</option>
                                 </select>
-                                
+                                <span class="selectedOption"></span>
                             </div>
-                        </div>*@
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="dob" class="control-label"></label>
+                            @*<input asp-for="dob" class="form-control" />*@
+                            <input type="text" class="form-control dobEdit" name="dob" id="dob" autocomplete="off" />
+                            <span asp-validation-for="dob" class="text-danger"></span>
+                        </div>
                         <div class="form-group">
                             <label asp-for="userImg" class="control-label"></label>
                             @*<input asp-for="userImg" class="form-control" />*@
@@ -136,18 +147,18 @@
                             <input asp-for="userCV" class="form-control userCV1" type="file" />
                             <span asp-validation-for="userCV" class="text-danger"></span>
                         </div>
-                        @*<div class="form-group">
+                        <div class="form-group">
                             <label asp-for="password" class="control-label"></label>
-                            <input asp-for="password" class="form-control" />
+                            <input asp-for="password" class="form-control password1" />
                             <span asp-validation-for="password" class="text-danger"></span>
-                        </div>*@
-                       
+                        </div>
+
                         <div class="form-group">
                             <label asp-for="Gender" class="control-label"></label>
                             @*<input asp-for="Gender" class="form-control" />*@
-                            Male: <input checked="checked" id="Gender" name="Gender" type="radio" value="male" />
-                            Female: <input id="Gender" name="Gender" type="radio" value="female" />
-                            Others: <input id="Gender" selected ="selected" name="Gender" type="radio" value="others" />
+                            Male: <input id="Gender" class="Gender1" name="Gender" type="radio" value="male" />
+                            Female: <input id="Gender" name="Gender" class="Gender2" type="radio" value="female" />
+                            Others: <input id="Gender" selected="selected" class="Gender3" name="Gender" type="radio" value="others" />
                             <span asp-validation-for="Gender" class="text-danger"></span>
                         </div>
 
@@ -162,8 +173,6 @@
             </div>
         </div>
     </div>
-}
-
 
 
     <div class="modal fade" tabindex="-1" role="dialog" id="AddNewRecord">
@@ -191,7 +200,7 @@
                         </div>
                         <div class="form-group">
                             <label asp-for="phoneNo" class="control-label"></label>
-                            <input asp-for="phoneNo" class="form-control phoneNo" />
+                            <input asp-for="phoneNo" maxlength="14" class="form-control phoneNo" />
                             <span asp-validation-for="phoneNo" class="text-danger"></span>
                         </div>
                         <div class="form-group">
@@ -211,7 +220,7 @@
                                 <select id="cityy" class="form-control userCity">
                                     <option>--Select--</option>
                                 </select>
-                                <span id="selectedOption"></span>
+                                <span class="selectedOption"></span>
                             </div>
                         </div>
                         <div class="form-group">
@@ -233,7 +242,7 @@
                         <div class="form-group">
                             <label asp-for="dob" class="control-label"></label>
                             @*<input asp-for="dob" class="form-control" />*@
-                            <input type="text" class="form-control dob" name="dob" id="dob" autocomplete="off" />
+                            <input type="text" class="form-control dobInsert" name="dob" autocomplete="off" />
                             <span asp-validation-for="dob" class="text-danger"></span>
                         </div>
                         <div class="form-group">
@@ -265,40 +274,10 @@
     @section Scripts
 {
         <script>
-
-
-
-
-            //$(document).on('click', '#editRecord', function () {
-
-                function myEditFunction(i) {
-                    var id = $('#editRecord_' + i).attr('idVal');
-                    alert(id);
-                    var jsonRequestData = { id: id }
-
-                    $.ajax({
-                        type: 'POST',
-                        url: 'Edit/',
-                        data: jsonRequestData,
-                        success: function (response) {
-                            $(".fName").val("");
-                            $(".lName").val("");
-                            $(".phoneNo").val("");
-                            $(".emailNo").val("");
-                            $(".password").val("");
-                            $(".dob").val("");
-                           
-                            $('#EditRecord').modal('show');
-                        }
-                    });
-                }
-            //});
-           
-
-
-
+          
             $(document).on('change', '#countrylist', function () {
                 var countryId = $(this).val();
+                $("#hCountryName").val(countryId);
                 //var countryId = $('#countrylist option:selected').eq(0).val();
                 console.log("countryId: " + countryId);
                 var jsonRequestData = { countryId: countryId }
@@ -323,7 +302,7 @@
                         
                         $(".userCity").remove();
                         $(".cityy").remove();
-                        var strString = '<option>--Select--</option>';
+                        var strString = '<option value="">Select City</option>';
                         for (let i = 0; i < data.length; i++) {
                             console.log("Data: " + data[i].id + "  " + data[i].cityName);
                             Id = data[i].id
@@ -335,7 +314,7 @@
                         var strSelect = '<select name="userCity" class="form-control userCity" id="userCity">'
                         var strEndSelect = '</select>'
                         var originalSelectString = strSelect + strString + strEndSelect
-                        $(originalSelectString).insertBefore("#selectedOption");
+                        $(originalSelectString).insertBefore(".selectedOption");
                         console.log(originalSelectString);
                     }
                 })
@@ -343,73 +322,27 @@
 
 
 
+          
+            
+
+            //Datepicker
             $(document).ready(function () {
-                $('#saveData').on('click', function () {
-                    var fName = $("#fName").val();
-                    var lName = $("#lName").val();
-                    var phoneNo = $("#phoneNo").val();
-                    var emailNo = $("#emailNo").val();
-                    var countryName = $("#countryName").val();
-                    var userCity = $("#userCity").val();
-                    var userImg = $("#userImg").val();
-                    var userCV = $("#userCV").val();
-                    alert("userCity: " + userCity);
-                    var password = $("#password").val();
-                    var dob = $("#dob").val();
-                    var Gender = $("#Gender").val();
-
-                    var jsonRequestData = { fName: fName, lName: lName, phoneNo: phoneNo, emailNo: emailNo, countryName: countryName, userCity: userCity, userImg: userImg, userImg: userImg, userCV: userCV, password: password, dob: dob, Gender: Gender }
-
-                    $.ajax({
-                        type: 'POST',
-                        url: 'Reg/Create/',
-                        data: jsonRequestData,
-                        success: function (response) {
-                            //$('#EditRecord #id').val(response.id);
-                        }
-                    })
-                });
-            });
-
-
-            $(document).ready(function () {
-                $('#updateData').on('click', function () {
-                    alert("PLEASE IGNORE..!! Not done yet database update for update data.");
-                    return false;
-
-                    var fName = $("#fName").val();
-                    var lName = $("#lName").val();
-                    var phoneNo = $("#phoneNo").val();
-                    var emailNo = $("#emailNo").val();
-                    var countryName = $("#countryName").val();
-                    var userCity = $("#userCity").val();
-                    var userImg = $("#userImg").val();
-                    var userCV = $("#userCV").val();
-                    alert("userCity: " + userCity);
-                    var password = $("#password").val();
-                    var dob = $("#dob").val();
-                    var Gender = $("#Gender").val();
-
-                    var jsonRequestData = { fName: fName, lName: lName, phoneNo: phoneNo, emailNo: emailNo, countryName: countryName, userCity: userCity, userImg: userImg, userImg: userImg, userCV: userCV, password: password, dob: dob, Gender: Gender }
-
-                    $.ajax({
-                        type: 'POST',
-                        url: 'Reg/Create/',
-                        data: jsonRequestData,
-                        success: function (response) {
-                            //$('#EditRecord #id').val(response.id);
-                        }
-                    })
-                });
-            });
-
-
-            $(document).ready(function () {
-                $('#dob').datepicker({
+                $('.dobEdit').datepicker({
                     dateFormat: "dd/mm/yy",
                     changeMonth: true,
                     changeYear: true,
-                    yearRange: "1990:2022",
+                    yearRange: "1990:2021",
+                    //showOn: "both",
+                    //buttonText: "<i class='fa fa-calendar'></i>"
+                });
+            });
+
+            $(document).ready(function () {
+                $('.dobInsert').datepicker({
+                    dateFormat: "dd/mm/yy",
+                    changeMonth: true,
+                    changeYear: true,
+                    yearRange: "1990:2021",
                     //showOn: "both",
                     //buttonText: "<i class='fa fa-calendar'></i>"
                 });

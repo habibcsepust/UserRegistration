@@ -16,8 +16,12 @@ namespace UserRegistration.Models
         public string email { get; set; }
         public string city { get; set; }
         public string country { get; set; }
-        public string Genedr { get; set; }
+        public int cityId { get; set; }
+        public int countryId { get; set; }
+        public string gender { get; set; }
         public DateTime dob { get; set; }
+
+        public string password { get; set; }
 
         public int Year { get; set; }
         public int Month { get; set; }

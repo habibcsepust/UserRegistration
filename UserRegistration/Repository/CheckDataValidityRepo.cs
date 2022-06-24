@@ -53,5 +53,46 @@ namespace UserRegistration.Repository
             return ExistDuplicate;
         }
 
+        public string GetImageFileName(int id)
+        {
+            bool ExistDuplicate = false;
+            SqlConnection sqlConnection = new SqlConnection(connectionString);
+            sqlConnection.Open();
+            string query = "SELECT userImg from TblUsers WHERE Id =  " + id + "";
+            SqlCommand sqlCommand = new SqlCommand(query, sqlConnection);
+
+            SqlDataReader sqlDataReader = sqlCommand.ExecuteReader();
+
+            Registration reg = new Registration();
+            while (sqlDataReader.Read())
+            {
+                reg.userImg = sqlDataReader["userImg"].ToString();
+            }
+            sqlConnection.Close();
+            return reg.userImg;
+        }
+
+        public string GetCVFileName(int id)
+        {
+            bool ExistDuplicate = false;
+            SqlConnection sqlConnection = new SqlConnection(connectionString);
+            sqlConnection.Open();
+            string query = "SELECT userCV from TblUsers WHERE Id =  " + id + "";
+            SqlCommand sqlCommand = new SqlCommand(query, sqlConnection);
+
+            SqlDataReader sqlDataReader = sqlCommand.ExecuteReader();
+
+            Registration reg = new Registration();
+            while (sqlDataReader.Read())
+            {
+                reg.userCV = sqlDataReader["userCV"].ToString();
+            }
+            sqlConnection.Close();
+            return reg.userCV;
+        }
+
+
+
+
     }
 }

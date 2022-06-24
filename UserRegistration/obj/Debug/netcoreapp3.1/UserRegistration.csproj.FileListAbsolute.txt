@@ -128,4 +128,3 @@ D:\DotNetBase\UserRegistration\UserRegistration\obj\Debug\netcoreapp3.1\UserRegi
 D:\DotNetBase\UserRegistration\UserRegistration\obj\Debug\netcoreapp3.1\UserRegistration.dll
 D:\DotNetBase\UserRegistration\UserRegistration\obj\Debug\netcoreapp3.1\UserRegistration.pdb
 D:\DotNetBase\UserRegistration\UserRegistration\obj\Debug\netcoreapp3.1\UserRegistration.genruntimeconfig.cache
-D:\DotNetBase\UserRegistration\UserRegistration\obj\Debug\netcoreapp3.1\UserRegistration.csproj.AssemblyReference.cache

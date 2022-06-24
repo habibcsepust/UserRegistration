@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -81,10 +82,46 @@ namespace UserRegistration.Controllers
 
 
         [HttpPost]
-        public IActionResult Edit(int id)
+        public JsonResult Edit(int id)
         {
-            intId = id.ToString();
-            return RedirectToAction("UserList", "Home");
+            RegistrationViewModel registrationViewModel = new RegistrationViewModel();
+            try
+            {
+                //intId = id.ToString();
+                //return RedirectToAction("UserList", "Home");
+                SqlConnection sqlConnection = new SqlConnection(connectionString);
+                sqlConnection.Open();
+                var sqlquery = "select tuser.Id as id, CONCAT(fName,+' '+lName) as name,tuser.fName as fName,tuser.lName as lName,tuser.phoneNo as phone,tuser.Gender as gender, tuser.emailNo as email, tuser.dob as dob,tuser.password as password,tuser.userImg as Image,tuser.userCV as CV, tcountry.countryName as country,tcountry.Id as countryId, tcity.cityName as city,tcity.Id as cityId from TblUsers tuser left join TblCity tcity on tuser.userCity = tcity.Id left join TblCountry tcountry on tcountry.Id = tcity.CountryId WHERE tuser.Id=" + id+"";
+
+                SqlCommand sqlCommand = new SqlCommand(sqlquery, sqlConnection);
+                SqlDataReader sqlDataReader = sqlCommand.ExecuteReader();
+               
+                while (sqlDataReader.Read())
+                {
+                    registrationViewModel.Id = Convert.ToInt32(sqlDataReader["id"].ToString());
+                    registrationViewModel.fName = sqlDataReader["fName"].ToString();
+                    registrationViewModel.lName = sqlDataReader["lName"].ToString();
+                    registrationViewModel.dob = Convert.ToDateTime(sqlDataReader["dob"].ToString());
+                    registrationViewModel.name = sqlDataReader["name"].ToString();
+                    registrationViewModel.phone = sqlDataReader["phone"].ToString();
+                    registrationViewModel.email = sqlDataReader["email"].ToString();
+                    registrationViewModel.password = sqlDataReader["password"].ToString();
+                    registrationViewModel.gender = sqlDataReader["gender"].ToString();
+                    registrationViewModel.city = sqlDataReader["city"].ToString();
+                    registrationViewModel.country = sqlDataReader["country"].ToString();
+                    registrationViewModel.cityId = Convert.ToInt32(sqlDataReader["cityId"].ToString());
+                    registrationViewModel.countryId = Convert.ToInt32(sqlDataReader["countryId"].ToString());
+                    registrationViewModel.userImg = sqlDataReader["Image"].ToString();
+                    registrationViewModel.userCV = sqlDataReader["CV"].ToString();
+                }
+                sqlConnection.Close();
+               
+            }
+            catch (Exception ex)
+            {
+            }
+
+            return Json(registrationViewModel);
         }
 
 
@@ -110,7 +147,7 @@ namespace UserRegistration.Controllers
                 sqlConnection.Open();
                 //var sqlquery = "SELECT top 10 CONCAT(fName,+' '+lName) as name,tu.phoneNo as phone, tu.emailNo as email, tu.dob as dob, tu.userImg as Image, tu.userCV as CV, tc.cityName as city, tblc.countryName as country from TblUsers tu left join TblCity tc ON tu.userCity = tc.Id left join TblCountry tblc ON  tu.countryName = tblc.Id where tu.emailNo = '" + strEmail + "'";
 
-                var sqlquery = "select tuser.Id as id, CONCAT(fName,+' '+lName) as name,tuser.fName as fName,tuser.lName as lName,tuser.phoneNo as phone,tuser.Gender as Gender, tuser.emailNo as email, tuser.dob as dob,tuser.userImg as Image,tuser.userCV as CV, tcountry.countryName as country, tcity.cityName as city from TblUsers tuser left join TblCity tcity on tuser.userCity = tcity.Id left join TblCountry tcountry on tcountry.Id = tcity.CountryId " + strSql + "";
+                var sqlquery = "select tuser.Id as id, CONCAT(fName,+' '+lName) as name,tuser.fName as fName,tuser.lName as lName,tuser.phoneNo as phone,tuser.Gender as gender, tuser.emailNo as email, tuser.dob as dob,tuser.userImg as Image,tuser.userCV as CV, tcountry.countryName as country, tcity.cityName as city from TblUsers tuser left join TblCity tcity on tuser.userCity = tcity.Id left join TblCountry tcountry on tcountry.Id = tcity.CountryId order by tuser.Id DESC";
 
                 SqlCommand sqlCommand = new SqlCommand(sqlquery, sqlConnection);
 
@@ -153,7 +190,7 @@ namespace UserRegistration.Controllers
                     registrationViewModel.name = sqlDataReader["name"].ToString();
                     registrationViewModel.phone = sqlDataReader["phone"].ToString();
                     registrationViewModel.email = sqlDataReader["email"].ToString();
-                    //registrationViewModel.Genedr = sqlDataReader["Genedr"].ToString();
+                    registrationViewModel.gender = sqlDataReader["gender"].ToString();
                     registrationViewModel.city = sqlDataReader["city"].ToString();
                     registrationViewModel.country = sqlDataReader["country"].ToString();
                     registrationViewModel.Year = Years;
@@ -167,10 +204,12 @@ namespace UserRegistration.Controllers
                 sqlConnection.Close();
                 //return View(registrationViewModel);
             }
-            catch { 
+            catch (Exception ex){ 
             }
             ViewBag.registrationData = "";
+            
             ViewBag.registrationData = registrationViewModels;
+            ViewBag.Total = registrationViewModels.Count();
 
             Registration userRegistration = new Registration
             {

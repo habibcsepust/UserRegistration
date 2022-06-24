@@ -185,7 +185,7 @@ namespace UserRegistration.Controllers
                 {
                     bool isPrime = true;
                     double checkInitial = maxId + 1;
-                    maxId = maxId + 100;
+                    maxId = maxId + 5;
                     for (double i = checkInitial; i <= maxId; i++)
                     {
                         for (double j = 2; j <= maxId; j++)
@@ -368,115 +368,9 @@ namespace UserRegistration.Controllers
             {
                 SqlConnection sqlConnection = new SqlConnection(connectionString);
                 sqlConnection.Open();
-                //string query = "SELECT * FROM TblUsers where Id = " + userRegistration.Id + "";
-
-
-                string maxSqlQuery = "SELECT MAX(Id) FROM TblUsers";
-                SqlCommand sqlCommand = new SqlCommand(maxSqlQuery, sqlConnection);
-                SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(sqlCommand);
-
-                double maxId;
-
-                //DataTable dataTable = new DataTable();
-                //int isFill = sqlDataAdapter.Fill(dataTable);
-
-
-                //var checkType = sqlCommand.ExecuteScalar().GetType();
-                string numrows = Convert.ToString(sqlCommand.ExecuteScalar());
-                if (numrows != "")
-                {
-                    maxId = Convert.ToInt32(sqlCommand.ExecuteScalar());
-                }
-                else
-                {
-                    maxId = 1;
-                }
-
-                //if (dataTable.Rows.Count > 0)
-                //{
-                //    maxId = int.Parse(dataTable.Rows[0][0].ToString());
-                //}
-                //else
-                //{
-                //    maxId = 1;
-                //}
-
-                double tmpMaxId = maxId;
-
-                if (userRegistration.Gender == "male")
-                {
-                    if (maxId % 2 == 0)
-                    {
-                        if (tmpMaxId == maxId)
-                        {
-                            maxId = maxId + 2;
-                        }
-
-                    }
-                    else
-                    {
-                        maxId = maxId + 1;
-                    }
-                }
-                else if (userRegistration.Gender == "female")
-                {
-                    if (maxId % 2 == 0)
-                    {
-                        maxId = maxId + 1;
-                    }
-                    else
-                    {
-                        if (tmpMaxId == maxId)
-                        {
-                            maxId = maxId + 1;
-                        }
-                    }
-                }
-                else
-                {
-                    bool isPrime = true;
-                    double checkInitial = maxId + 1;
-                    maxId = maxId + 100;
-                    for (double i = checkInitial; i <= maxId; i++)
-                    {
-                        for (double j = 2; j <= maxId; j++)
-                        {
-                            if (i != j && i % j == 0)
-                            {
-                                isPrime = false;
-                                break;
-                            }
-                        }
-                        if (isPrime)
-                        {
-                            if (tmpMaxId == maxId)
-                            {
-                                maxId = maxId + 1;
-                            }
-                            else
-                            {
-                                maxId = i;
-                            }
-                        }
-                        isPrime = true;
-                    }
-                }
-
-                maxId = Convert.ToDouble(maxId.ToString().PadLeft(4, '0'));
-
-                userRegistration.Id = Convert.ToInt32(maxId);
-
-
-                //if (maxId == userRegistration.Id)
-                //{
-                //    ViewBag.registered = "Already registered user..";
-                //    return View(userRegistration);
-                //}
-
-
+    
                 string wwwPath = this.Environment.WebRootPath;
                 string contentPath = this.Environment.ContentRootPath;
-
 
                 if (userImg != null && userImg.Length > 0)
                 {
@@ -486,6 +380,11 @@ namespace UserRegistration.Controllers
                     await userImg.CopyToAsync(new FileStream(uploads, FileMode.Create));
                     userRegistration.userImg = "files/" + userImg.FileName;
                 }
+                else
+                {
+                    string getImageFileName = _checkData.GetImageFileName(userRegistration.Id);
+                    userRegistration.userImg = getImageFileName;
+                }
 
                 if (userCV != null && userCV.Length > 0)
                 {
@@ -494,6 +393,11 @@ namespace UserRegistration.Controllers
                     await userCV.CopyToAsync(new FileStream(uploads, FileMode.Create));
                     userRegistration.userCV = "files/" + userCV.FileName;
                 }
+                else
+                {
+                    string getCVFileName = _checkData.GetCVFileName(userRegistration.Id);
+                    userRegistration.userCV = getCVFileName;
+                }
 
                 if (userCV == null)
                 {
@@ -501,39 +405,19 @@ namespace UserRegistration.Controllers
                     ViewBag.NoFoundImage = "No Found CV";
                 }
 
+                string strInsertSql = "UPDATE TblCity SET CountryId = "+ userRegistration .countryName
+                    + " WHERE CountryId = "+userRegistration.countryName + "";
+                string updateSql = "UPDATE TblUsers SET fName = '"+userRegistration.fName+"', lName = '"+userRegistration.lName+"', phoneNo = '"+userRegistration.phoneNo+"',emailNo = '"+userRegistration.emailNo+"', userCity = "+userRegistration.userCity + ",userImg = '"+userRegistration.userImg+"',userCV = '"+userRegistration.userCV+"',password = '"+userRegistration.password+"', dob = '"+userRegistration.dob+"',Gender = '"+userRegistration.Gender+"' WHERE Id = " + userRegistration.Id + "";
 
-                bool isExistDuplicatePhone = _checkData.IsExistDuplicatePhone(userRegistration.phoneNo);
-                if (isExistDuplicatePhone)
-                {
-                    TempData["existDuplicate"] = "Phone number Already Exist..";
-                    return RedirectToAction("UserList", "Home");
-                }
-                else
-                {
-                    TempData["existDuplicate"] = "";
-                }
-
-                bool isExistDuplicateEmail = _checkData.IsExistDuplicateMail(userRegistration.emailNo);
-                if (isExistDuplicateEmail)
-                {
-                    TempData["existDuplicate"] = "Email Already Exist..";
-                    return RedirectToAction("UserList", "Home");
-                }
-                else
-                {
-                    TempData["existDuplicate"] = "";
-                }
-
-
-                string strInsertSql = "INSERT INTO TblUsers(Id,fName, lName,phoneNo,emailNo,userCity,userImg, userCV, password,dob,Gender)" +
-                        "VALUES(" + userRegistration.Id + ",'" + userRegistration.fName + "','" + userRegistration.lName + "','" + userRegistration.phoneNo + "','" + userRegistration.emailNo + "'," + userRegistration.userCity + "," +
-                        "'" + userRegistration.userImg + "','" + userRegistration.userCV + "','" + userRegistration.password + "','" + userRegistration.dob + "','" + userRegistration.Gender + "')";
-                SqlCommand sqlCommand3 = new SqlCommand(strInsertSql, sqlConnection);
-
-                int isExecute = sqlCommand3.ExecuteNonQuery();
+                SqlCommand sqlCommand = new SqlCommand(strInsertSql, sqlConnection);
+                int isExecute = sqlCommand.ExecuteNonQuery();
                 if (isExecute > 0)
                 {
-                    TempData["save"] = "Product has been Saved Successfully.";
+                    SqlCommand sqlCommand1 = new SqlCommand(updateSql, sqlConnection);
+                    int executeUpdateQuery = sqlCommand1.ExecuteNonQuery();
+                    if (executeUpdateQuery > 0) {
+                        TempData["save"] = "Product has been Updatesd Successfully.";
+                    }
                 }
                 sqlConnection.Close();
 
